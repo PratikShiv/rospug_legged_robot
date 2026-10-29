@@ -1,0 +1,9 @@
+jetson_monitor:
+  ros__parameters:
+    rate_hz: 1.0
+    hardware_id: jetson_orin_nx_16gb
+    temp_warn_c: 75.0
+    temp_error_c: 90.0
+    input_rail: VDD_IN
+    input_min_v: 0.0
+    power_warn_w: 0.0

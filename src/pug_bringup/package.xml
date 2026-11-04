@@ -14,7 +14,11 @@
 
   <exec_depend>pug_monitoring</exec_depend>
   <exec_depend>diagnostic_aggregator</exec_depend>
-
+  <exec_depend>joy</exec_depend>
+  <exec_depend>pug_teleop</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>pug_teleop</exec_depend>
+  
   <export>
     <build_type>ament_cmake</build_type>
   </export>

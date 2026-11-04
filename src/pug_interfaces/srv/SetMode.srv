@@ -1,0 +1,4 @@
+uint8 mode      # a RobotMode constant
+---
+bool accepted
+string reason

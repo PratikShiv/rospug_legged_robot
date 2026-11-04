@@ -1,0 +1,17 @@
+pug_teleop:
+  ros__parameters:
+    axis_vx: 1            # Left Stick Up/Down
+    axis_vy: 0            # Left Stick Left/Right
+    axis_yaw: 2           # Right Stick Left/Right
+    button_deadman: 9     # Left Shoulder: hold to move
+    button_stand: 0       # A: stand up
+    button_sit: 1         # B: sit down
+    button_walk: 2        # X: walk
+    button_estop: 4       # Back/View
+    max_vx: 0.25          # m/s
+    max_vy: 0.15          # m/s
+    max_yaw: 0.8          # rad/s
+    max_accel: 0.5        # m/s^2, also used for yaw in rad/s^2
+    deadzone: 0.8
+    timeout_s: 0.5
+    rate_hz: 50.0

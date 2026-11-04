@@ -6,4 +6,9 @@ analyzers:
       path: Jetson
       startswith: ['jetson_monitor']
 
+    teleop:
+      type: diagnostic_aggregator/GenericAnalyzer
+      path: Teleop
+      startswith: ['pug_teleop']
+
       # Later add other nodes like teleop, servos, supervisor

@@ -1,0 +1,10 @@
+uint8 BOOT=0
+uint8 IDLE=1
+uint8 STANDING_UP=2
+uint8 STAND=3
+uint8 WALK=4
+uint8 SITTING=5
+uint8 SAFE_STOP=6
+uint8 ESTOP=7
+std_msgs/Header header
+uint8 mode

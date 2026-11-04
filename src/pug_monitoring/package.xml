@@ -3,8 +3,8 @@
 <package format="3">
   <name>pug_monitoring</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="jetson@todo.todo">jetson</maintainer>
+  <description>Pug Monitoring</description>
+  <maintainer email="pratikshiv@gmail.com">jetson</maintainer>
   <license>Apache-2.0</license>
 
   <depend>rclpy</depend>

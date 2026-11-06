@@ -1,0 +1,6 @@
+oled_display:
+  ros__parameters:
+    i2c_bus: 7
+    i2c_address: 60 # 0x3c
+    page_size: 8
+    rate_hz: 1.0

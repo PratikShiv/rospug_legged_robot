@@ -10,7 +10,7 @@ from luma.core.error import Error as LumaError
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
 from luma.oled.device import ssd1306
-from pug_display.pages import health_lines, network_lines, page_at, title
+from pug_display.pages import (battery_text, battery_volts, health_lines, network_lines, page_at, title)
 from pug_interfaces.msg import RobotMode
 import rclpy
 from rclpy.node import Node
@@ -53,6 +53,7 @@ class OledDisplay(Node):
         bus = self.declare_parameter('i2c_bus', 7).value
         address = self.declare_parameter('i2c_address', 0x3C).value
         self.page_period_s = self.declare_parameter('page_period_s', 4.0).value
+        self.battery_cells = self.declare_parameter('battery_cells', 3).value
         rate_hz = self.declare_parameter('rate_hz', 1.0).value
 
         self.serial = TolerantI2C(bus, address)
@@ -60,6 +61,7 @@ class OledDisplay(Node):
         self.mode_names = {getattr(RobotMode, name): name for name in MODES}
         self.mode = None
         self.statuses = []
+        self.battery_v = None
 
         self.create_subscription(DiagnosticArray, '/diagnostics_agg', self._on_diagnostics, 1)
         latched = QoSProfile(depth=1, durability=QoSDurabilityPolicy.TRANSIENT_LOCAL)
@@ -72,6 +74,8 @@ class OledDisplay(Node):
 
     def _on_diagnostics(self, msg):
         self.statuses = [(s.name, ord(s.level), s.message) for s in msg.status]
+        self.battery_v = battery_volts(
+            [(s.name, ord(s.level), {v.key: v.value for v in s.values}) for s in msg.status])
 
     def _on_mode(self, msg):
         self.mode = self.mode_names.get(msg.mode, str(msg.mode))
@@ -83,11 +87,14 @@ class OledDisplay(Node):
             lines = network_lines(addresses, socket.gethostname())
         else:
             lines = health_lines(self.statuses)
+        battery = battery_text(self.battery_v, self.battery_cells)
         self.serial.error = None
         self.device.command(*SETUP)
         with canvas(self.device) as draw:
-            draw.rectangle((0, 0, 127, 10), outline='white')
-            draw.text((2, 0), title(self.mode), fill='black')
+            draw.rectangle((0, 0, 127, 10), fill='white')
+            draw.text((2, 0), battery, fill='black')
+            mode = title(self.mode)
+            draw.text((126 - draw.textlength(mode), 0), mode, fill='black')
             draw.text((2, 11), lines[0], fill='white')
             draw.text((2, 21), lines[1], fill='white')
 
@@ -98,6 +105,7 @@ class OledDisplay(Node):
             stat.summary(DiagnosticStatus.WARN, f'OLED not answering: {self.serial.error}')
 
         stat.add('page_period_s', str(self.page_period_s))
+        stat.add('battery', battery_text(self.battery_v, self.battery_cells))
         return stat
 
 

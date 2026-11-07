@@ -1,0 +1,6 @@
+mcu_bridge:
+  ros__parameters:
+    port: /dev/ttyTHS1
+    baud: 500000
+    frame_id: imu_link
+    battery_warn_v: 10.5

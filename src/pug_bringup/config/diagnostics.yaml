@@ -16,4 +16,9 @@ analyzers:
       path: Display
       startswith: ['oled_display']
 
+    mcu:
+      type: diagnostic_aggregator/GenericAnalyzer
+      path: MCU
+      startswith: ['mcu_bridge']
+
       # Later add other nodes like teleop, servos, supervisor

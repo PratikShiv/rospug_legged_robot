@@ -4,3 +4,4 @@ oled_display:
     i2c_address: 60 # 0x3c
     page_size: 8
     rate_hz: 1.0
+    battery_cells: 3

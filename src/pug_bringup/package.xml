@@ -19,6 +19,7 @@
   <exec_depend>joy</exec_depend>
   <exec_depend>pug_teleop</exec_depend>
   <exec_depend>pug_display</exec_depend>
+  <exec_depend>pug_mcu</exec_depend>
   
   <export>
     <build_type>ament_cmake</build_type>

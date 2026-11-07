@@ -23,8 +23,10 @@ def generate_launch_description():
         DeclareLaunchArgument('monitoring', default_value='true'),
         DeclareLaunchArgument('teleop', default_value='true'),
         DeclareLaunchArgument('display', default_value='true'),
+        DeclareLaunchArgument('mcu', default_value='true'),
 
         include('monitoring.launch.py', 'monitoring'),
         include('teleop.launch.py', 'teleop'),
         include('display.launch.py', 'display'),
+        include('mcu.launch.py', 'mcu'),
     ])

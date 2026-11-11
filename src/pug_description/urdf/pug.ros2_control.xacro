@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="servo_joint" params="name init">
+        <joint name="${name}">
+            <command_interface name="position"/>
+            <state_interface name="position">
+                <param name="initial_value">${init}</param>
+            </state_interface>
+            <state_interface name="velocity"/>
+            <xacro:if value="${hardware == 'real'}">
+                <state_interface name="temperature"/>
+                <state_interface name="voltage"/>
+            </xacro:if>
+        </joint>
+    </xacro:macro>
+
+    <ros2_control name="pug_servo_bus" type="system">
+        <hardware>
+            <xacro:if value="${hardware == 'mock'}">
+                <plugin>mock_components/GenericSystem</plugin>
+            </xacro:if>
+            <xacro:if value="${hardware == 'real'}">
+                <plugin>pug_hardware/HiwinderBusSystem</plugin>
+                <param name="config_file">$(arg servo_config)</param>
+            </xacro:if>
+        </hardware>
+        <xacro:servo_joint name="LF_HAA" init="0.0"/>
+        <xacro:servo_joint name="LF_HFE" init="0.6"/>
+        <xacro:servo_joint name="LF_KFE" init="-1.2"/>
+        <xacro:servo_joint name="RF_HAA" init="0.0"/>
+        <xacro:servo_joint name="RF_HFE" init="0.6"/>
+        <xacro:servo_joint name="RF_KFE" init="-1.2"/>
+        <xacro:servo_joint name="LH_HAA" init="0.0"/>
+        <xacro:servo_joint name="LH_HFE" init="0.6"/>
+        <xacro:servo_joint name="LH_KFE" init="-1.2"/>
+        <xacro:servo_joint name="RH_HAA" init="0.0"/>
+        <xacro:servo_joint name="RH_HFE" init="0.6"/>
+        <xacro:servo_joint name="RH_KFE" init="-1.2"/>
+    </ros2_control>
+</robot>
